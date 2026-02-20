@@ -84,3 +84,66 @@ try{
 }
 
 }
+
+
+
+
+export async function getUserId(){
+
+  try{
+
+    const user = await auth();
+
+    if(!user.userId){
+      console.log("Error: userId is null or undefined.");
+      return null;
+    }
+
+    return user.userId;
+
+  }
+  catch(e)
+  {
+
+  }
+}
+
+export async function CreatePostdb({content,image}:{content:string,image:File | null}){
+
+
+  try{
+
+    const user = await auth();
+
+    if(!user.userId){
+      console.log("Error: userId is null or undefined.");
+      return null;
+    }
+
+    const newPost = await prisma.post.create({
+      
+      data:{
+        
+        authorId:user.userId,
+        content:content,
+        Image:image?URL.createObjectURL(image):null
+
+      }
+    })
+
+
+    if(!newPost) return "post not created some error";
+
+    return newPost;
+
+    
+
+  }
+  catch(e)
+  {
+
+    console.log("error",e);
+    return e;
+
+  }
+}

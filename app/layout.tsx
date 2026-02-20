@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { NavBar } from "./components/NavBar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Sidebar from "@/components/sidebar";
+import { Toaster } from "react-hot-toast";
 
 
 const geistSans = Geist({
@@ -42,7 +43,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
 
-     
+     <Toaster/>
         <div className="min-h-screen w-full bg-background text-foreground flex flex-col">
 
 <NavBar/>
