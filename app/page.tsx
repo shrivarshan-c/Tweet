@@ -1,6 +1,5 @@
-
 import Image from "next/image";
-import CreatePost from "./components/CreatePost";
+import CreatePostWrapper from "./components/CreatePostWrapper";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Home() {
@@ -13,8 +12,8 @@ export default async function Home() {
 
 <div className="col-span-6 ">
 
-{user?<CreatePost/>:null}
-
+{user?<CreatePostWrapper />:<div className="w-full h-64 border-2 border-border rounded-2xl p-4 flex items-center justify-center text-foreground text-lg font-medium">
+  Please sign in to create a post.</div>}
 
 
 

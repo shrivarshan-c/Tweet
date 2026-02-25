@@ -1,4 +1,3 @@
-
 "use server";
 import { prisma } from "@/lib/prisma";
 
@@ -108,11 +107,8 @@ export async function getUserId(){
   }
 }
 
-export async function CreatePostdb({content,image}:{content:string,image:File | null}){
-
-
+export async function CreatePostdb({content,image}:{content:string,image:string}){
   try{
-
     const user = await auth();
 
     if(!user.userId){
@@ -120,30 +116,27 @@ export async function CreatePostdb({content,image}:{content:string,image:File | 
       return null;
     }
 
+    if (!content.trim() && !image.trim()) {
+      console.log("Error: Both content and image are empty.");
+      return null;
+    }
+
     const newPost = await prisma.post.create({
-      
       data:{
-        
-        authorId:user.userId,
-        content:content,
-        Image:image?URL.createObjectURL(image):null
-
+        authorId: user.userId,
+        content: content,
+       
+        Image: image 
       }
-    })
-
+    });
 
     if(!newPost) return "post not created some error";
 
     return newPost;
-
-    
-
   }
   catch(e)
   {
-
     console.log("error",e);
     return e;
-
   }
 }
